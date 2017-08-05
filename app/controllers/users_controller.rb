@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if !logged_in?
-      redirect to '/users/create'
+      erb :'/users/create'
     else
       redirect to '/'
     end
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   get '/login' do
     if !logged_in?
-      redirect to '/users/login'
+      erb :'/users/login'
     else
       redirect to '/'
     end
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     if !(params[:gallery_name] == "" || params[:email] == "" || params[:password] == "")
       @user = User.new(:gallery_name => params[:gallery_name], :email => params[:email], :password => params[:password])
       @user.save
-      sessions[:user_id] = @user.id
+      session[:user_id] = @user.id
     end
     redirect to '/'
   end

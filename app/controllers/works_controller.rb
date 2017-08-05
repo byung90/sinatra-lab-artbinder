@@ -1,14 +1,19 @@
 class WorksController < ApplicationController
 
+  get '/:slug/new' do
+    @artist = current_user.artists.find_by_slug(params[:slug])
+    erb :'works/add'
+  end
+
   get '/:slug/:id' do
-    @artist = current_user.find_by_slug(params[:slug])
+    @artist = current_user.artists.find_by_slug(params[:slug])
     @work = @artist.works.find_by(id: params[:id])
     erb :'works/show'
   end
 
   get '/:slug/:id/edit' do
     if logged_in?
-      @artist = current_user.find_by_slug(params[:slug])
+      @artist = current_user.artists.find_by_slug(params[:slug])
       @work = @artist.works.find_by(id: params[:id])
       erb :'works/edit'
     else
@@ -19,10 +24,10 @@ class WorksController < ApplicationController
 
   post '/:slug/new' do
     if !(params[:title] == "")
-      @artist = current_user.find_by_slug(params[:slug])
+      @artist = current_user.artists.find_by_slug(params[:slug])
       @work = @artist.works.create(title: params[:title], medium: params[:medium], year: params[:year].to_i, price: params[:price].to_f)
       @work.save
-      redirect to "/#{@artist.name}/#{@work.id}/"
+      redirect to "/#{@artist.name}/#{@work.id}"
     else
       redirect to "/#{@artist.name}/#{@work.id}/edit"
     end
@@ -31,7 +36,7 @@ class WorksController < ApplicationController
 
   patch '/:slug/:id' do
     if !(params[:title] == "")
-      @artist = current_user.find_by_slug(params[:slug])
+      @artist = current_user.artists.find_by_slug(params[:slug])
       @work = @artist.works.find_by(id: params[:id])
 
       @work.title = params[:title]
@@ -49,7 +54,7 @@ class WorksController < ApplicationController
 
   delete '/:slug/:id/delete' do
     if logged_in?
-      @artist = current_user.find_by_slug(params[:slug])
+      @artist = current_user.artists.find_by_slug(params[:slug])
       @work = @artist.works.find_by(id: params[:id])
 
       if @artist.user_id == current_user.id

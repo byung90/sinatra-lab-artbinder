@@ -1,5 +1,5 @@
-<h2>Edit New Work</h2>
-<form action="/@artist.name %>/new" method="POST">
+<h2>Edit Work</h2>
+<form action="/<%= @artist.name %>/<%= @work.id %>" method="POST">
   <input type="hidden" name="_method" value="PATCH">
   <p>Work Title: <input type="text" name="title" value="<%= @work.title %>"></p>
   <p>Year: <input type="text" name="year" value="<%= @work.year %>"></p>

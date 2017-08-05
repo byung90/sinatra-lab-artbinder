@@ -28,14 +28,14 @@ class ArtistsController < ApplicationController
     erb :'artists/edit'
   end
 
-  patch '/:slug/:id' do
+  patch '/:slug' do
     if params[:name] == ""
       redirect to "/#{@artist.slug}/edit"
     else
       @artist = current_user.artists.find_by(params[:id])
       @artist.name = params[:name]
       @artist.save
-      redirect to "/#{@artist.slug}"
+      redirect to "/#{@artist.name}"
     end
   end
 
