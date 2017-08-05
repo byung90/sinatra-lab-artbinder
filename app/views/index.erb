@@ -1,15 +1,19 @@
 <% if logged_in? %>
   <h2> <%=current_user.username %>'s' to Account </h2>
 
+  <p><a href="/artist">Add Artist</a></p>
+
   <% current_user.artists.each do |artist| %>
-    <li><a href=""><%= artist.name %></a></li>
+    <li><a href="/<%=artist.name %>"><%= artist.name %></a></li>
   <% end %>
+
+
 
 
 <% else %>
   <h2>Welcome to ArtBinder</h2>
 
-  <p><a href="">Sign Up<</a> or <a href="">Log In</a></p>
+  <p><a href="/signup">Sign Up<</a> or <a href="/login">Log In</a></p>
 
   <form action="/signup" method="POST">
     <p>Gallery Name: <input type="text" name="gallery_name"></p>

@@ -1,0 +1,9 @@
+<h2> <%=@artist.name %> </h2>
+
+<p><a href="/<%=@artist.name %>/edit">Edit Artist</a></p>
+
+<p><a href="">Add Work</a></p>
+
+<% @artist.works.each do |work| %>
+  <li><a href="/<%=@artist.name %>/<%=work.id %>"><%= work.title %></a></li>
+<% end %>
